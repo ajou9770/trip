@@ -40,12 +40,28 @@
         }
         video {
             border-radius: 10px;
+            max-width: 100%;
+            max-height: 400px;
             box-shadow: 0px 5px 5px 0px black;
         }
-        /* 모바일 화면에서의 네비게이션 바 스타일 */
-    @media (max-width: 768px) {
-        .navbar-nav {
-            flex-direction: column;
+        /* 말풍선 스타일 */
+    .tooltip {
+        display: none;
+        position: fixed;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 10px;
+        background-color: black;
+        color: white;
+        text-align: center;
+        border-radius: 6px;
+        z-index: 1000;
+    }
+    /* 화면이 작아졌을 때 말풍선 표시 */
+    @media (max-width: 300px) {
+        .tooltip {
+            display: block;
         }
     }
     </style>
@@ -115,7 +131,7 @@
                 </video>
             </div>
         </section>     
-        
+        <div class="tooltip">메뉴를 클릭하세요!</div>
     </div>
 <!--     <div class="footer">
         <p>&copy; 2024 문화 탐방 동아리. 모든 권리 보유.</p>
@@ -133,6 +149,17 @@
             }
         });
     </script>
+<!--     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var navbarToggler = document.querySelector('.navbar-toggler');
+            var tooltip = document.querySelector('.tooltip');
+    
+            navbarToggler.addEventListener('click', function() {
+                tooltip.style.display = 'none';
+            });
+        });
+    </script> -->
+    
    
     <script>
         // 비디오 버튼 클릭 이벤트 처리
