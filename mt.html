@@ -142,8 +142,7 @@
   <div class="space_around">
   <!--   <a href="https://docs.google.com/spreadsheets/d/1lC6fBILXjqxLEyU7RfDiFU8TtWqQw8kWop2etp5vN6Q/edit?usp=sharing"> 🔎참가신청현황보기 → </a> -->
     <br>
-
-    📞회장에게전화하기
+    <span onclick="callon()">📞회장에게전화하기
     </span>
 
     <br>
@@ -168,7 +167,7 @@
     </script>
 <script>  
     function callon() {
-      if (window.confirm("☏ 총무(김설호)에게 📞전화앱으로 연결할까요?")) {
+      if (window.confirm("☏ 회장(김설호)에게 📞전화앱으로 연결할까요?")) {
         document.location.href = "tel:010-7118-6639"
     } else {
       alert("취소 되었습니다!!")
