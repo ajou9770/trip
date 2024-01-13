@@ -146,7 +146,7 @@
   </div>
   <br>
   <div id="shownotice">
-    <h4 style="color: red;">🤷‍♂️죄송합니다. "2월3일 선자령 트래킹" 참가신청이 마감 되었습니다. </h4>
+    <h4 style="color: red;">🤷‍♂️죄송합니다. 참가신청이 마감 되었습니다. 회장(총무)에게 문의 바랍니다.</h4>
   <br>
   </div>
   <div class="space_around">
@@ -158,13 +158,14 @@
     <div id="loading-overlay">
       <div id="loading-spinner"></div>
       <div id="loading-message">로딩 중입니다...
-        <br><small>✨아주대병원 산악회</small>
+        <br><small>🏕아주대병원 산악회</small>
       </div>
     </div>
     <script>
+      //신청마감 시간 체크 후 마감 안내 로직
       function checkTimeAndToggleVisibility() {
         var currentTime = new Date();
-        var targetTime = new Date('2024-01-14T23:59:00'); // 여기에 원하는 시간을 설정하세요
+        var targetTime = new Date('2024-01-14T23:59:00'); // 마감시간 설정(마지막날)
     
         if (currentTime >= targetTime) {
             var elementToHide = document.getElementById('fram'); // 숨길 요소의 ID
