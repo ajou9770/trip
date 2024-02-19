@@ -8,7 +8,7 @@
       href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <title>📝산악회 동아리 가입신청서</title>
+    <title>📝문화탐방 동아리 가입신청서</title>
     <style>
         body {
             max-width: 1200px;
@@ -130,6 +130,7 @@
   background-color: #fefefe;
   margin: auto; /* 모달을 수직 가운데로 위치시킵니다. */
   padding: 20px;
+  margin-top: 20px;
   border: 1px solid #888;
   width: 80%; /* 모달 너비를 조정합니다. */
   position: relative;
@@ -137,9 +138,8 @@
 
 /* 모달 닫기 버튼 스타일 */
 .close {
-  color: #aaa;
   float: right;
-  font-size: 28px;
+  font-size: 25px;
   font-weight: bold;
 }
 
@@ -155,17 +155,11 @@
  
  <div class="space_around">
    <div id="fram">
-   <iframe src="https://script.google.com/macros/s/AKfycbxL3Hy-RVwf_MBqy_L212eXRA2Gmcy17KdEFEGZgclNUeFGBgunHZHMYpMzlwRgc4AZkw/exec" width="100%" height="600" frameborder="0" marginheight="0" marginwidth="0">로드 중…</iframe>
-   <!--<a href="https://docs.google.com/spreadsheets/d/1JMPRVw-hIARNFGgUXzbj4Nx7x4nJGarUoQiqaoR84UM/edit#gid=0" target="_blank" onclick="alert('📢신청내역을 확인하실수 있습니다')">🔎가입신청내역 보기→</a>
-   -->
-    <!-- <button onclick="location.reload()" style="background-color: antiquewhite;">↩다시작성하기</button>
-  <br> -->
+   <iframe src="https://script.google.com/macros/s/AKfycbw2mTyzISYoUUdWd_SBECyZCVOYDH8I9_CyLo4JFR1vbLsc2PDLNCpax-MB0Vk9TnpR/exec" width="100%" height="550" frameborder="0" marginheight="0" marginwidth="0">로드 중…</iframe>
   </div>
   </div>
   <br>
  <div class="space_around">
-    <!-- <span onclick="callon()">📞회장에게전화하기
-    </span> -->
     <button onclick="openContactModal()">📞운영진에게 연락하기</button>
 
     <div id="contactModal" class="modal">
@@ -183,7 +177,7 @@
     <div id="loading-overlay">
       <div id="loading-spinner"></div>
       <div id="loading-message">로딩 중입니다...
-        <br><small>🏕아주대병원 산악회</small>
+        <br><small>✈아주대병원 문화탐방</small>
       </div>
     </div>
     <script>
@@ -215,8 +209,8 @@ function closeContactModal() {
 
 // 회장에게 전화
 function callChairman() {
-  if (window.confirm("☏ 회장(김설호)에게 📞전화앱으로 연결할까요?")) {
-    document.location.href = "tel:010-7118-6639";
+  if (window.confirm("☏ 회장(김한수)에게 📞전화앱으로 연결할까요?")) {
+    document.location.href = "tel:010-4654-3152";
   } else {
     alert("취소 되었습니다!!");
   }
@@ -224,8 +218,8 @@ function callChairman() {
 
 // 총무에게 전화
 function callSecretary() {
-  if (window.confirm("☏ 총무(김선옥)에게 📞전화앱으로 연결할까요?")) {
-    document.location.href = "tel:010-4938-6574";
+  if (window.confirm("☏ 총무(김설호)에게 📞전화앱으로 연결할까요?")) {
+    document.location.href = "tel:010-7118-6639";
   } else {
     alert("취소 되었습니다!!");
   }
