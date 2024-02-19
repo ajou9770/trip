@@ -127,9 +127,18 @@
   </div>
   <br>
  <div class="space_around">
-    <span onclick="callon()">📞회장에게전화하기
-    </span>
+    <!-- <span onclick="callon()">📞회장에게전화하기
+    </span> -->
+    <button onclick="openContactModal()">📞운영진에게 연락하기</button>
 
+    <div id="contactModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeContactModal()">&times;</span>
+        <p>회장 또는 총무에게 연락할까요?</p>
+        <button onclick="callChairman()">📞회장에게 연락하기</button>
+        <button onclick="callSecretary()">📞총무에게 연락하기</button>
+      </div>
+    </div>
     <br>
     <div id="loading-overlay">
       <div id="loading-spinner"></div>
@@ -151,13 +160,36 @@
     });
     </script>
 <script>  
-    function callon() {
-      if (window.confirm("☏ 회장(김설호)에게 📞전화앱으로 연결할까요?")) {
-        document.location.href = "tel:010-7118-6639"
-    } else {
-      alert("취소 되었습니다!!")
-    }
-   }                
+ 
+   // 모달 열기
+function openContactModal() {
+  var modal = document.getElementById("contactModal");
+  modal.style.display = "block";
+}
+
+// 모달 닫기
+function closeContactModal() {
+  var modal = document.getElementById("contactModal");
+  modal.style.display = "none";
+}
+
+// 회장에게 전화
+function callChairman() {
+  if (window.confirm("☏ 회장(김설호)에게 📞전화앱으로 연결할까요?")) {
+    document.location.href = "tel:010-7118-6639";
+  } else {
+    alert("취소 되었습니다!!");
+  }
+}
+
+// 총무에게 전화
+function callSecretary() {
+  if (window.confirm("☏ 총무(김선옥)에게 📞전화앱으로 연결할까요?")) {
+    document.location.href = "tel:010-4938-6574";
+  } else {
+    alert("취소 되었습니다!!");
+  }
+}
   </script>
 </body>
 </html>
