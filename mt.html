@@ -164,7 +164,7 @@
       //신청마감 시간 체크 후 마감 안내 로직
       function checkTimeAndToggleVisibility() {
         var currentTime = new Date();
-        var targetTime = new Date('2024-04-01T23:59:00'); // 마감시간 설정(마지막날)
+        var targetTime = new Date('2030-04-01T23:59:00'); // 마감시간 설정(마지막날)
     
         if (currentTime >= targetTime) {
             var elementToHide = document.getElementById('fram'); // 숨길 요소의 ID
@@ -194,7 +194,7 @@
     window.addEventListener('load', function() {
       var loadingOverlay = document.getElementById('loading-overlay');
       loadingOverlay.style.display = 'none';
-      alert('🤵 참가신청이 40명을 초과하여 대기로 접수 하실 수 있습니다. \n ✔취소 발생시 접수순으로 확정 됩니다');
+      alert('🤵 4.6일 제비봉 참가신청이 마감되었습니다.  \n ✔신청내역 조회 및 변경(취소)만 가능 합니다.');
     });
     </script>
 <script>  
