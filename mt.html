@@ -113,11 +113,37 @@
     #shownotice {
       display: none;
     }
+    .slideshow-container {
+      position: relative;
+      width: 100%;
+      height: 350px; /* 이 값은 이미지 크기에 맞게 조정하세요 */
+  }
+  
+  .slideshow-image {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 2s ease-in-out; /* 천천히 페이드 효과를 적용 */
+  }
+  
+  .slideshow-image.visible {
+      opacity: 1;
+  }
     </style>
 </head>
 <body>
  <!--  onload="alert('🤵 참가신청이 마감 되어 대기로 접수 하실 수 있습니다. \n ✔취소발생시 접수 순으로 신청확정 됩니다.')" -->
- <img src="img/samaksan_img.JPG">
+ <div class="slideshow-container">
+ <img src="img/samaksan_img.JPG" class="slideshow-image">
+ <img src="img/sam_02.jpg" class="slideshow-image">
+ <img src="img/sam_03.jpg" class="slideshow-image">
+ <img src="img/sam_04.jpg" class="slideshow-image">
+ <img src="img/sam_05.jpg" class="slideshow-image">
+ <img src="img/sam_06.jpg" class="slideshow-image">
+ </div>
   <h3>📢5월 산행일정(문화탐방동아리 공동진행)</h3><br>
   <P>
     📅일시: 2024.5.11(토) 7시~18시<br><br>
@@ -153,6 +179,25 @@
       </div>
     </div>
    
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          const images = document.querySelectorAll(".slideshow-image");
+          let currentImageIndex = 0;
+          images[currentImageIndex].classList.add("visible"); // 초기 이미지를 보이게 설정
+      
+          setInterval(function() {
+              // 현재 이미지의 투명도를 0으로 설정하여 숨깁니다.
+              images[currentImageIndex].classList.remove("visible");
+      
+              // 다음 이미지로 인덱스를 이동합니다. 마지막 이미지인 경우 다시 첫 번째 이미지로 돌아갑니다.
+              currentImageIndex = (currentImageIndex + 1) % images.length;
+      
+              // 다음 이미지의 투명도를 1로 설정하여 보이게 합니다.
+              images[currentImageIndex].classList.add("visible");
+          }, 5000); // 5초 간격으로 이미지를 전환합니다.
+      });
+      </script>
+
     <script>
       //신청마감 시간 체크 후 마감 안내 로직
       function checkTimeAndToggleVisibility() {
