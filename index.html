@@ -113,12 +113,38 @@
     #shownotice {
       display: none;
     }
+    .hidden {
+        display: none;
+    }
+    .slideshow-image {
+      width: 100%;
+      border-radius: 10px;
+        position: absolute;
+        max-height: 700px; /* 이미지의 최대 높이를 700px로 제한 */
+        top: 0;
+        left: 0;
+        opacity: 0;
+        transition: opacity 2s ease-in-out;
+
+    }
+    .visible {
+        opacity: 1;
+    }
+    .slideshow-container {
+        position: relative;
+        max-height: 700px; /* 이미지의 최대 높이를 700px로 제한 */
+    }
     </style>
 </head>
 <body>
  <!--  onload="alert('🤵 참가신청이 마감 되어 대기로 접수 하실 수 있습니다. \n ✔취소발생시 접수 순으로 신청확정 됩니다.')" -->
- <img src="img/garden_img.JPG">
-  <h3>📢5월 탐방일정(산악회 공동진행)</h3><br>
+ <div class="slideshow-container">
+   <img src="img/garden_img.JPG" class="slideshow-image visible">
+<img src="img/animation_img.JPG" class="slideshow-image">
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+<h3>📢5월 탐방일정(산악회 공동진행)</h3><br>
   <P>
     📅일시: 2024.5.11(토) 7시~18시<br><br>
     🏕 장소 : 춘천 A 코스 or B코스 + 김유정문학촌(공통)<br>
@@ -153,6 +179,32 @@
       </div>
     </div>
    
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          const images = document.querySelectorAll(".slideshow-image");
+          let currentImageIndex = 0;
+  
+          function showNextImage() {
+              // Hide the current image
+              images[currentImageIndex].classList.remove("visible");
+              
+              // Increment index to show the next image
+              currentImageIndex = (currentImageIndex + 1) % images.length;
+  
+              // Show the next image
+              images[currentImageIndex].classList.add("visible");
+          }
+  
+          // Start the slideshow
+          const interval = setInterval(showNextImage, 7000); // 7 seconds
+  
+          // Stop the slideshow when the window is closed or navigated away
+          window.addEventListener("unload", function () {
+              clearInterval(interval);
+          });
+      });
+  </script>
+
     <script>
       //신청마감 시간 체크 후 마감 안내 로직
       function checkTimeAndToggleVisibility() {
