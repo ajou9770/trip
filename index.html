@@ -132,6 +132,25 @@
   .slideshow-image.visible {
       opacity: 1;
   }
+  #scrollToTopButton {
+    position: fixed;
+    bottom: 10%;
+    right: 15px;
+    z-index: 99;
+    border: none;
+    outline: none;
+    background-color: #ddd;
+    color: black;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 18px;
+  }
+  
+  #scrollToTopButton:hover {
+    background-color: #555;
+    color: white;
+  }
     </style>
 </head>
 <body>
@@ -162,10 +181,10 @@
     📅신청기간: ~ 4.21까지 (동아리 회원 우선 신청)<br>
     ⚠ 동아리별 각 20명 선착순 모집 후 잔여좌석에 한해 비회원 모집<br>    
    </P>
-  <div id="shownotice">
+<!--   <div id="shownotice"> -->
   <div class="space_around">
    <iframe src="https://script.google.com/macros/s/AKfycbxNeKOnOx6_NdQq9j4P8HUh5_w9y-uNg03JbEQfj-6p6TniAIi-wN_eqNxYc0fVjPBoWA/exec" width="100%" height="800" frameborder="0" marginheight="0" marginwidth="0">로드 중…</iframe>
-  </div>
+<!--   </div> -->
   <br>
 
   
@@ -184,6 +203,8 @@
         <br><small>✈문화탐방동아리</small>
       </div>
     </div>
+    <!-- Scroll to Top Button -->
+<a id="scrollToTopButton" href="#" onclick="scrollToTop();" style="display: none;">🔝</a>
 
     <script>
       document.addEventListener("DOMContentLoaded", function() {
@@ -204,6 +225,24 @@
       });
       </script>
       
+      <script>
+        // 스크롤 버튼 보이기
+        window.onscroll = function() {scrollFunction()};
+        
+        function scrollFunction() {
+          if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("scrollToTopButton").style.display = "block";
+          } else {
+            document.getElementById("scrollToTopButton").style.display = "none";
+          }
+        }
+        
+        // 페이지 상단으로 스크롤 이동
+        function scrollToTop() {
+          window.scrollTo({top: 0, behavior: 'smooth'});
+        }        
+        </script>
+       
 
     <script>
       //신청마감 시간 체크 후 마감 안내 로직
