@@ -165,7 +165,7 @@
   
   <br>
   </div>
-  <h4 style="color: red;">🤷이 신청접수 폼은 4월 8일(월) 오픈됩니다.</h4>
+  <h4 id="openinfo" style="color: red;">🤷이 신청접수 폼은 4월 8일(월) 17시에 오픈됩니다.</h4>
   <div class="space_around">
   <!-- <a href="https://docs.google.com/spreadsheets/d/1lC6fBILXjqxLEyU7RfDiFU8TtWqQw8kWop2etp5vN6Q/edit?usp=sharing"> 🔎참가신청현황보기 → </a> -->
     <span onclick="callon()">📞회장에게전화하기
@@ -179,6 +179,35 @@
       </div>
     </div>
    
+    <script>
+      // Set the date and time you want to show the notice
+      const showYear = 2024; // Example: 2024
+      const showMonth = 4; // Month as an integer from 1-12 (January is 1, December is 12)
+      const showDay = 8; // Day of the month
+      const showHour = 9; // Hour (24-hour clock)
+      const showMinute = 10; // Minute
+      
+      function checkDateTimeAndShowNotice() {
+        const now = new Date();
+        const showDate = new Date(showYear, showMonth - 1, showDay, showHour, showMinute, 0);
+      
+        // Check if the current date and time is equal to or past the specified date and time
+        if (now >= showDate) {
+          document.getElementById('shownotice').style.display = 'block';
+          document.getElementById('openinfo').style.display = 'none';
+        } else {
+          document.getElementById('shownotice').style.display = 'none';
+        }
+      }
+      
+      // Check the date and time right away when the page loads
+      document.addEventListener('DOMContentLoaded', checkDateTimeAndShowNotice);
+      
+      // Optionally, set an interval to periodically check the date and time,
+      // if the page is going to be open across the transition time.
+      setInterval(checkDateTimeAndShowNotice, 60000); // Check every minute
+      </script>
+
     <script>
       document.addEventListener("DOMContentLoaded", function() {
           const images = document.querySelectorAll(".slideshow-image");

@@ -190,7 +190,7 @@
   
   <br>
   </div>
-  <h4 style="color: red;">🤷‍♂️4월 8일부터 5월 탐방 참가신청 접수 예정입니다.</h4>
+  <h4 id="openinfo" style="color: red;">🤷‍♂️4월 8일부터 5월 탐방 참가신청 접수 예정입니다.</h4>
   <div class="space_around">
   <!-- <a href="https://docs.google.com/spreadsheets/d/1lC6fBILXjqxLEyU7RfDiFU8TtWqQw8kWop2etp5vN6Q/edit?usp=sharing"> 🔎참가신청현황보기 → </a> -->
     <span onclick="callon()">📞총무에게전화하기
@@ -205,6 +205,36 @@
     </div>
     <!-- Scroll to Top Button -->
 <a id="scrollToTopButton" href="#" onclick="scrollToTop();" style="display: none;">🔝</a>
+
+<script>
+  // Set the date and time you want to show the notice
+  const showYear = 2024; // Example: 2024
+  const showMonth = 4; // Month as an integer from 1-12 (January is 1, December is 12)
+  const showDay = 8; // Day of the month
+  const showHour = 17; // Hour (24-hour clock)
+  const showMinute = 0; // Minute
+  
+  function checkDateTimeAndShowNotice() {
+    const now = new Date();
+    const showDate = new Date(showYear, showMonth - 1, showDay, showHour, showMinute, 0);
+  
+    // Check if the current date and time is equal to or past the specified date and time
+    if (now >= showDate) {
+      document.getElementById('shownotice').style.display = 'block';
+      document.getElementById('openinfo').style.display = 'none';
+    } else {
+      document.getElementById('shownotice').style.display = 'none';
+    }
+  }
+  
+  // Check the date and time right away when the page loads
+  document.addEventListener('DOMContentLoaded', checkDateTimeAndShowNotice);
+  
+  // Optionally, set an interval to periodically check the date and time,
+  // if the page is going to be open across the transition time.
+  setInterval(checkDateTimeAndShowNotice, 60000); // Check every minute
+  </script>
+  
 
     <script>
       document.addEventListener("DOMContentLoaded", function() {
@@ -278,7 +308,7 @@
     window.addEventListener('load', function() {
       var loadingOverlay = document.getElementById('loading-overlay');
       loadingOverlay.style.display = 'none';
-      alert('✔5월 탐방은 4월 8일(월)부터 신청하실 수 있습니다.');
+      alert('✔5월 탐방은 4월 8일(월) 17시부터 신청하실 수 있습니다.');
     });
     </script>
 <script>  
