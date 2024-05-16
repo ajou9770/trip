@@ -117,33 +117,65 @@
       position: relative;
       width: 100%;
       height: 350px; /* 이 값은 이미지 크기에 맞게 조정하세요 */
+      max-width: 600px;
+      margin: auto;
   }
-  
   .slideshow-image {
       width: 100%;
+      display: none;
       height: 100%;
       position: absolute;
       top: 0;
       left: 0;
       opacity: 0;
-      transition: opacity 2s ease-in-out; /* 천천히 페이드 효과를 적용 */
-  }
-  
-  .slideshow-image.visible {
+      transition: opacity 2s ease-in-out;
+    }
+    .slideshow-image.visible {
       opacity: 1;
   }
+    .active {
+        display: block;
+    }
+    .watermark {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 24px;
+        font-weight: bold;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        z-index: 10;
+    }
     </style>
 </head>
 <body>
  <!--  onload="alert('🤵 참가신청이 마감 되어 대기로 접수 하실 수 있습니다. \n ✔취소발생시 접수 순으로 신청확정 됩니다.')" -->
  <div class="slideshow-container">
- <img src="img/dota01.jpg" class="slideshow-image">
- <img src="img/dota02.jpg" class="slideshow-image">
- <img src="img/dota03.jpg" class="slideshow-image">
- <img src="img/dota04.jpg" class="slideshow-image">
- <img src="img/dota05.jpg" class="slideshow-image">
- <img src="img/dota06.jpg" class="slideshow-image">
- </div>
+  <div class="slide">
+      <img src="img/dota01.jpg" class="slideshow-image active">
+      <div class="watermark">두타산(산행일정:2024.7.6토)</div>
+  </div>
+  <div class="slide">
+      <img src="img/dota02.jpg" class="slideshow-image">
+      <div class="watermark">🏞️두타산(산행일정:2024.7.6토)</div>
+  </div>
+  <div class="slide">
+      <img src="img/dota03.jpg" class="slideshow-image">
+      <div class="watermark">🏞️두타산(산행일정:2024.7.6토)</div>
+  </div>
+  <div class="slide">
+      <img src="img/dota04.jpg" class="slideshow-image">
+      <div class="watermark">🏞️두타산(산행일정:2024.7.6토)</div>
+  </div>
+  <div class="slide">
+      <img src="img/dota05.jpg" class="slideshow-image">
+      <div class="watermark">🏞️두타산(산행일정:2024.7.6토)</div>
+  </div>
+  <div class="slide">
+      <img src="img/dota06.jpg" class="slideshow-image">
+      <div class="watermark">🏞️두타산(산행일정:2024.7.6토)</div>
+  </div>
+</div>
   <h4><b>📢7월 동해 두타산 산행일정</b></h4><br>
   <P>
     7월에는 빼어난 풍광과 시원한 무릉계곡을 품은 동해 두타산으로 갑니다. <br>
@@ -179,7 +211,24 @@
         <br><small>🏕아주대병원 산악회</small>
       </div>
     </div>
-   
+    <script>
+       let slideIndex = 0;
+    showSlides();
+
+    function showSlides() {
+        let slides = document.getElementsByClassName("slide");
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].getElementsByClassName("slideshow-image")[0].classList.remove("active");
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) {
+            slideIndex = 1;
+        }
+        slides[slideIndex - 1].getElementsByClassName("slideshow-image")[0].classList.add("active");
+        setTimeout(showSlides, 5000); // Change image every 5 seconds
+    }
+  </script>
+
     <script>
       // Set the date and time you want to show the notice
       const showYear = 2024; // Example: 2024
