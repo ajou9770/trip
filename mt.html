@@ -114,28 +114,26 @@
       display: none;
     }
     .slideshow-container {
-      position: relative;
-      width: 100%;
-      height: 350px; /* 이 값은 이미지 크기에 맞게 조정하세요 */
-      max-width: 600px;
-      margin: auto;
-      overflow: hidden;
-  }
-  .slideshow-image {
-      width: 100%;
-      display: none;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      opacity: 0;
-      transition: opacity 2s ease-in-out;
+        position: relative;
+        width: 100%;
+        height: 350px; /* 이 값은 이미지 크기에 맞게 조정하세요 */
+        max-width: 600px;
+        margin: auto;
+        overflow: hidden;
+        opacity: 1;
+        transition: opacity 2s ease-in-out;
     }
-    .slideshow-image.visible {
-      opacity: 1;
-  }
-    .active {
-        display: block;
+    .slideshow-image {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        transition: opacity 2s ease-in-out;
+    }
+    .visible {
+        opacity: 1;
     }
     .watermark {
         position: absolute;
@@ -146,6 +144,11 @@
         font-weight: bold;
         text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
         z-index: 10;
+    }
+    @media (max-width: 600px) {
+        .watermark {
+            font-size: 18px;
+        }
     }
     </style>
 </head>
@@ -224,7 +227,7 @@
             slideIndex = 1;
         }
         slides[slideIndex - 1].getElementsByClassName("slideshow-image")[0].classList.add("active");
-        setTimeout(showSlides, 5000); // Change image every 5 seconds
+        setTimeout(showSlides, 3000); // Change image every 5 seconds
     }
   </script>
 
