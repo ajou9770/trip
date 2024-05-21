@@ -167,9 +167,9 @@
     <div id="contactModal" class="modal">
       <div class="modal-content">
         
-        <p>회장 또는 총무에게 문의할까요?</p>
+        <p>🤷🏽‍♀️누구에게 연결하실까요?</p>
         <button onclick="callChairman()">🤵회장</button>
-        <button onclick="callSecretary()">🤷총무</button>
+        <button onclick="callSecretary()">🤷총무(회계)</button>
         <hr>
         <span class="close" onclick="closeContactModal()">❌</span>
         <br>
@@ -220,8 +220,8 @@ function callChairman() {
 
 // 총무에게 전화
 function callSecretary() {
-  if (window.confirm("☏ 총무(김선옥)에게 📞전화앱으로 연결할까요?")) {
-    document.location.href = "tel:010-4938-6574";
+  if (window.confirm("☏ 회계(이세민)에게 📞전화앱으로 연결할까요?")) {
+    document.location.href = "tel:010-2378-1287";
   } else {
     alert("취소 되었습니다!!");
   }
