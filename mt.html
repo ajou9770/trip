@@ -1,352 +1,402 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link
-      href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <title>🏕산악회 등반(트래킹)일정 및 참가 신청하기</title>
-    <style>
-        body {
-            max-width: 900px;
-            margin: 5px;
-            padding: 10px;
-        }
-        .center {
-            display: flex;
-            text-align: center;
-        }
-        iframe {
-            border-radius: 10px;
-        }
-        a {
-            font-size: medium;
-            font-weight: 600;
-        }
-        #detail, #close {
-            display: none;
-        }
-        button {
-            font-size: 15px;
-            margin-top: 10px;
-            font-weight: 600;
-            border: none;
-            border-radius: 10px;
-            padding: 10px;
-            margin-right: 10px;
-            box-shadow: 0px 3px 6px grey;
-        }
-#icon_call {
-  border: none;
-  width: auto;
-  height: 55px;
-  padding-top: 12px;
-  padding-left: 10px;
-  padding-right: 10px;
-  font-size: 20px;
-  color: black;
-  border-radius: 35px;
-  box-shadow: 1px 3px 3px 1px slategray;
-  background: rgb(205, 235, 223);
-  text-align: center;
-  font-weight: bold;
-}
-#icon_call a {
-  color: black;
-  font-size: 20px;
-  font-weight: 600;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-.space_around {
-          display: flex;
-          justify-content: space-around;
-        }
-        #docu, #cancel {
-          display: none;
-          font-size: 15px;
-        }
-        #close {
-          font-weight: 600;
-        }
-        p {
-          border: solid 1px;
-          box-shadow: opx 2x 4px grey;
-          padding: 10px;
-          border-radius: 5px;
-          font-size: medium;
-        }
-        #loading-overlay {
-   position: fixed;
-   top: 0;
-   left: 0;
-   width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* 배경 색상과 투명도를 조정하세요 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    }
- #loading-message {
-    font-size: 24px;
-    color: white;
-    }
-    #loading-spinner {
-      border: 16px solid #f3f3f3;
-      border-top: 16px solid #3498db;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      animation: spin 2s linear infinite;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    img {
-      width: 100%;
-      border-radius: 10px;
-    }
-    #shownotice {
-      display: none;
-    }
-    .slideshow-container {
-        position: relative;
-        width: 100%;
-        height: 350px; /* 이 값은 이미지 크기에 맞게 조정하세요 */
-        max-width: 600px;
-        margin: auto;
-        overflow: hidden;
-        opacity: 1;
-        transition: opacity 2s ease-in-out;
-    }
-    .slideshow-image {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        opacity: 0;
-        transition: opacity 2s ease-in-out;
-    }
-    .visible {
-        opacity: 1;
-    }
-    .watermark {
-        position: absolute;
-        bottom: 10px;
-        right: 10px;
-        color: rgba(255, 255, 255, 0.7);
-        font-size: 21px;
-        font-weight: bold;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-        z-index: 10;
-    }
-    @media (max-width: 600px) {
-        .watermark {
-            font-size: 18px;
-        }
-    }
-    </style>
-</head>
-<body>
- <!--  onload="alert('🤵 참가신청이 마감 되어 대기로 접수 하실 수 있습니다. \n ✔취소발생시 접수 순으로 신청확정 됩니다.')" -->
- <div class="slideshow-container">
-  <div class="slide">
-      <img src="img/dota01.jpg" class="slideshow-image">
-      <div class="watermark">🏞️두타산+추암촛대바위(2024.9.7토)</div>
-  </div>
-  <div class="slide">
-      <img src="img/dota02.jpg" class="slideshow-image">
-  </div>
-  <div class="slide">
-      <img src="img/dota03.jpg" class="slideshow-image">
-     <!--  <div class="watermark">🏞️두타산(산행일정:2024.7.6토)</div> -->
-  </div>
-  <div class="slide">
-      <img src="img/dota04.jpg" class="slideshow-image">
-  </div>
-  <div class="slide">
-      <img src="img/dota05.jpg" class="slideshow-image">
-      <!-- <div class="watermark">🏞️두타산(산행일정:2024.7.6토)</div> -->
-  </div>
-  <div class="slide">
-      <img src="img/lock01.jpg" class="slideshow-image">
-  </div>
-  <div class="slide">
-    <img src="img/lock02.jpg" class="slideshow-image">
-</div>
-</div>
-  <h4><b>📢9월 동해 두타산(추암촛대바위)산행 일정</b></h4><br>
-  <P>
-    9월에는 7월에 우천으로 취소된 무릉계곡을 품은 동해 두타산으로 다시 도전 합니다. <br>
-    추가로, 추암촛대바위도 경유하여 산과 바다를 함께 즐기실 수 있습니다. <br><br>   
-    📅일시: 2024.9.7(토) 6시 ~ 19시<br>
-    🏕 장소 : 동해 두타산 + 추암촛대바위(출렁다리)<br>
-       A코스: 배틀바위+두타산성(산행 5시간/난이도:중상)<br>
-       B코스: 무릉계곡 코스(트래킹 4시간  난이도:하)<br>
-       ⭐경유: 추암촛대바위(출렁다리)<br><br>
-    💳 참가비[아침간단식 + 하산식 포함]<br>
-       A코스|B코스: 2.5만원(비회원 4만원)<br><br>
-    📅신청기간: ~ 8.4일(일)까지 (동아리 회원 우선 신청)<br>
-    ⚠ 40명 선착순 모집 후 잔여좌석에 한해 비회원 모집<br>    
-   </P>
-  <div id="shownotice">
-  <div class="space_around">
-   <iframe src="https://script.google.com/macros/s/AKfycbzSuUzz5f7Eszg2I0fYuFvZY9NlFwXZmR0gF7w1L5l8uD5k0ZoUak9Qlne70wOlmeEw/exec" width="100%" height="800" frameborder="0" marginheight="0" marginwidth="0">로드 중…</iframe>
-  </div>
-  <br>
-  <br>
-  </div>
-  <h4 id="openinfo" style="color: red;">🤷[접수Form 오픈전] 접수Form은 7월 22일(월) 17시에 오픈됩니다.</h4>
-  <div class="space_around">
-  <!-- <a href="https://docs.google.com/spreadsheets/d/1lC6fBILXjqxLEyU7RfDiFU8TtWqQw8kWop2etp5vN6Q/edit?usp=sharing"> 🔎참가신청현황보기 → </a> -->
-    <span onclick="callon()">📞회장에게전화하기
-    </span>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link
+            href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
+            rel="stylesheet"/>
+        <title>🏕산악회 등반(트래킹)일정 및 참가 신청하기</title>
+        <style>
+            body {
+                max-width: 900px;
+                margin: 5px;
+                padding: 10px;
+            }
+            .center {
+                display: flex;
+                text-align: center;
+            }
+            iframe {
+                border-radius: 10px;
+            }
+            a {
+                font-size: medium;
+                font-weight: 600;
+            }
+            #close,
+            #detail {
+                display: none;
+            }
+            button {
+                font-size: 15px;
+                margin-top: 10px;
+                font-weight: 600;
+                border: none;
+                border-radius: 10px;
+                padding: 10px;
+                margin-right: 10px;
+                box-shadow: 0 3px 6px grey;
+            }
+            #icon_call {
+                border: none;
+                width: auto;
+                height: 55px;
+                padding-top: 12px;
+                padding-left: 10px;
+                padding-right: 10px;
+                font-size: 20px;
+                color: black;
+                border-radius: 35px;
+                box-shadow: 1px 3px 3px 1px slategray;
+                background: rgb(205, 235, 223);
+                text-align: center;
+                font-weight: bold;
+            }
+            #icon_call a {
+                color: black;
+                font-size: 20px;
+                font-weight: 600;
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+            }
+            .space_around {
+                display: flex;
+                justify-content: space-around;
+            }
+            #cancel,
+            #docu {
+                display: none;
+                font-size: 15px;
+            }
+            #close {
+                font-weight: 600;
+            }
+            p {
+                border: solid 1px;
+                box-shadow: opx 2x 4px grey;
+                padding: 10px;
+                border-radius: 5px;
+                font-size: medium;
+            }
+            #loading-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                /* 배경 색상과 투명도를 조정하세요 */
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 9999;
+            }
+            #loading-message {
+                font-size: 24px;
+                color: white;
+            }
+            #loading-spinner {
+                border: 16px solid #f3f3f3;
+                border-top: 16px solid #3498db;
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+                animation: spin 2s linear infinite;
+            }
+            @keyframes spin {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+            img {
+                width: 100%;
+                border-radius: 10px;
+            }
+            #shownotice {
+                display: none;
+            }
+            .slideshow-container {
+                position: relative;
+                width: 100%;
+                height: 350px;
+                /* 이 값은 이미지 크기에 맞게 조정하세요 */
+                max-width: 600px;
+                margin: auto;
+                overflow: hidden;
+                opacity: 1;
+                transition: opacity 2s ease-in-out;
+            }
+            .slideshow-image {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                opacity: 0;
+                transition: opacity 2s ease-in-out;
+            }
+            .visible {
+                opacity: 1;
+            }
+            .watermark {
+                position: absolute;
+                bottom: 10px;
+                right: 10px;
+                color: rgba(255, 255, 255, 0.7);
+                font-size: 21px;
+                font-weight: bold;
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+                z-index: 10;
+            }
+            @media (max-width: 600px) {
+                .watermark {
+                    font-size: 18px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- onload="alert('🤵 참가신청이 마감 되어 대기로 접수 하실 수 있습니다. \n ✔취소발생시 접수 순으로 신청확정
+        됩니다.')" -->
+        <div class="slideshow-container">
+            <div class="slide">
+                <img src="img/dota01.jpg" class="slideshow-image">
+                <div class="watermark">🏞️두타산+추암촛대바위(2024.9.7토)</div>
+            </div>
+            <div class="slide">
+                <img src="img/dota02.jpg" class="slideshow-image">
+            </div>
+            <div class="slide">
+                <img src="img/dota03.jpg" class="slideshow-image">
+                <!-- <div class="watermark">🏞️두타산(산행일정:2024.7.6토)</div> -->
+            </div>
+            <div class="slide">
+                <img src="img/dota04.jpg" class="slideshow-image">
+            </div>
+            <div class="slide">
+                <img src="img/dota05.jpg" class="slideshow-image">
+                <!-- <div class="watermark">🏞️두타산(산행일정:2024.7.6토)</div> -->
+            </div>
+            <div class="slide">
+                <img src="img/lock01.jpg" class="slideshow-image">
+            </div>
+            <div class="slide">
+                <img src="img/lock02.jpg" class="slideshow-image">
+            </div>
+        </div>
+        <h4>
+            <b>📢9월 동해 두타산(추암촛대바위)산행 일정</b>
+        </h4><br>
+        <p>
+            9월에는 7월에 우천으로 취소된 무릉계곡을 품은 동해 두타산으로 다시 도전 합니다.
+            <br>
+            추가로, 추암촛대바위도 경유하여 산과 바다를 함께 즐기실 수 있습니다.
+            <br><br>
+            📅일시: 2024.9.7(토) 6시 ~ 19시<br>
+            🏕 장소 : 동해 두타산 + 추암촛대바위(출렁다리)<br>
+            A코스: 배틀바위+두타산성(산행 5시간/난이도:중상)<br>
+            B코스: 무릉계곡 코스(트래킹 4시간 난이도:하)<br>
+            ⭐경유: 추암촛대바위(출렁다리)<br><br>
+            💳 참가비[아침간단식 + 하산식 포함]<br>
+            A코스|B코스: 2.5만원(비회원 4만원)<br><br>
+            📅신청기간: ~ 8.4일(일)까지 (동아리 회원 우선 신청)<br>
+            ⚠ 40명 선착순 모집 후 잔여좌석에 한해 비회원 모집<br>
+        </p>
+        <div id="shownotice">
+            <div class="space_around">
+                <iframe
+                    src="https://script.google.com/macros/s/AKfycbzSuUzz5f7Eszg2I0fYuFvZY9NlFwXZmR0gF7w1L5l8uD5k0ZoUak9Qlne70wOlmeEw/exec"
+                    width="100%"
+                    height="800"
+                    frameborder="0"
+                    marginheight="0"
+                    marginwidth="0">로드 중…</iframe>
+            </div>
+            <br>
+            <br>
+        </div>
+        <h4 id="openinfo" style="color: red;">🤷[접수Form 오픈전] 접수Form은 7월 22일(월) 17시에 오픈됩니다.</h4>
+        <div class="space_around">
+            <!-- <a
+            href="https://docs.google.com/spreadsheets/d/1lC6fBILXjqxLEyU7RfDiFU8TtWqQw8kWop2etp5vN6Q/edit?usp=sharing">
+            🔎참가신청현황보기 → </a> -->
+            <span onclick="callon()">📞회장에게전화하기
+            </span>
 
-    <br>
-    <div id="loading-overlay">
-      <div id="loading-spinner"></div>
-      <div id="loading-message">로딩 중입니다...
-        <br><small>🏕아주대병원 산악회</small>
-      </div>
-    </div>
-    <script>
-       let slideIndex = 0;
-    showSlides();
+            <br>
+            <div id="loading-overlay">
+                <div id="loading-spinner"></div>
+                <div id="loading-message">로딩 중입니다...
+                    <br>
+                    <small>🏕아주대병원 산악회</small>
+                </div>
+            </div>
+            <script>
+                let slideIndex = 0;
+                showSlides();
 
-    function showSlides() {
-        let slides = document.getElementsByClassName("slide");
-        for (let i = 0; i < slides.length; i++) {
-            slides[i].getElementsByClassName("slideshow-image")[0].classList.remove("active");
-        }
-        slideIndex++;
-        if (slideIndex > slides.length) {
-            slideIndex = 1;
-        }
-        slides[slideIndex - 1].getElementsByClassName("slideshow-image")[0].classList.add("active");
-        setTimeout(showSlides, 3000); // Change image every 5 seconds
-    }
-  </script>
+                function showSlides() {
+                    let slides = document.getElementsByClassName("slide");
+                    for (let i = 0; i < slides.length; i++) {
+                        slides[i]
+                            .getElementsByClassName("slideshow-image")[0]
+                            .classList
+                            .remove("active");
+                    }
+                    slideIndex++;
+                    if (slideIndex > slides.length) {
+                        slideIndex = 1;
+                    }
+                    slides[slideIndex - 1]
+                        .getElementsByClassName("slideshow-image")[0]
+                        .classList
+                        .add("active");
+                    setTimeout(showSlides, 3000); // Change image every 5 seconds
+                }
+            </script>
 
-    <script>
-      // Set the date and time you want to show the notice
-      const showYear = 2024; // Example: 2024
-      const showMonth = 5; // Month as an integer from 1-12 (January is 1, December is 12)
-      const showDay = 20; // Day of the month
-      const showHour = 17; // Hour (24-hour clock)
-      const showMinute = 0; // Minute
-      
-      function checkDateTimeAndShowNotice() {
-        const now = new Date();
-        const showDate = new Date(showYear, showMonth - 1, showDay, showHour, showMinute, 0);
-      
-        // Check if the current date and time is equal to or past the specified date and time
-        if (now >= showDate) {
-          document.getElementById('shownotice').style.display = 'block';
-          document.getElementById('openinfo').style.display = 'none';
-        } else {
-          document.getElementById('shownotice').style.display = 'none';
-        }
-      }
-      
-      // Check the date and time right away when the page loads
-      document.addEventListener('DOMContentLoaded', checkDateTimeAndShowNotice);
-      
-      // Optionally, set an interval to periodically check the date and time,
-      // if the page is going to be open across the transition time.
-      setInterval(checkDateTimeAndShowNotice, 60000); // Check every minute
-      </script>
+            <script>
+                // Set the date and time you want to show the notice
+                const showYear = 2024; // Example: 2024
+                const showMonth = 5; // Month as an integer from 1-12 (January is 1, December is 12)
+                const showDay = 20; // Day of the month
+                const showHour = 17; // Hour (24-hour clock)
+                const showMinute = 0; // Minute
 
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-    const images = document.querySelectorAll(".slideshow-image");
-    let currentImageIndex = 0;
-    images[currentImageIndex].classList.add("visible"); // 초기 이미지를 보이게 설정
+                function checkDateTimeAndShowNotice() {
+                    const now = new Date();
+                    const showDate = new Date(
+                        showYear,
+                        showMonth - 1,
+                        showDay,
+                        showHour,
+                        showMinute,
+                        0
+                    );
 
-    setInterval(function() {
-        // 현재 이미지의 클래스를 제거하여 숨깁니다.
-        images[currentImageIndex].classList.remove("visible");
+                    // Check if the current date and time is equal to or past the specified date and
+                    // time
+                    if (now >= showDate) {
+                        document
+                            .getElementById('shownotice')
+                            .style
+                            .display = 'block';
+                        document
+                            .getElementById('openinfo')
+                            .style
+                            .display = 'none';
+                    } else {
+                        document
+                            .getElementById('shownotice')
+                            .style
+                            .display = 'none';
+                    }
+                }
 
-        // 현재 이미지 인덱스와 다른 랜덤 인덱스를 생성합니다.
-        let nextImageIndex;
-        do {
-            nextImageIndex = Math.floor(Math.random() * images.length);
-        } while (nextImageIndex === currentImageIndex);
+                // Check the date and time right away when the page loads
+                document.addEventListener('DOMContentLoaded', checkDateTimeAndShowNotice);
 
-        // 다음 이미지 인덱스를 현재 이미지 인덱스로 설정합니다.
-        currentImageIndex = nextImageIndex;
+                // Optionally, set an interval to periodically check the date and time, if the
+                // page is going to be open across the transition time.
+                setInterval(checkDateTimeAndShowNotice, 60000); // Check every minute
+            </script>
 
-        // 다음 이미지의 클래스를 추가하여 보이게 합니다.
-        images[currentImageIndex].classList.add("visible");
-    }, 5000); // 5초 간격으로 이미지를 전환합니다.
-});
-      /* document.addEventListener("DOMContentLoaded", function() {
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const images = document.querySelectorAll(".slideshow-image");
+                    let currentImageIndex = 0;
+                    images[currentImageIndex]
+                        .classList
+                        .add("visible"); // 초기 이미지를 보이게 설정
+
+                    setInterval(function () {
+                        // 현재 이미지의 클래스를 제거하여 숨깁니다.
+                        images[currentImageIndex]
+                            .classList
+                            .remove("visible");
+
+                        // 현재 이미지 인덱스와 다른 랜덤 인덱스를 생성합니다.
+                        let nextImageIndex;
+                        do {
+                            nextImageIndex = Math.floor(Math.random() * images.length);
+                        } while (nextImageIndex === currentImageIndex);
+
+                        // 다음 이미지 인덱스를 현재 이미지 인덱스로 설정합니다.
+                        currentImageIndex = nextImageIndex;
+
+                        // 다음 이미지의 클래스를 추가하여 보이게 합니다.
+                        images[currentImageIndex]
+                            .classList
+                            .add("visible");
+                    }, 5000); // 5초 간격으로 이미지를 전환합니다.
+                });
+                /* document.addEventListener("DOMContentLoaded", function() {
           const images = document.querySelectorAll(".slideshow-image");
           let currentImageIndex = 0;
           images[currentImageIndex].classList.add("visible"); // 초기 이미지를 보이게 설정
-      
+
           setInterval(function() {
               // 현재 이미지의 투명도를 0으로 설정하여 숨깁니다.
               images[currentImageIndex].classList.remove("visible");
-      
+
               // 다음 이미지로 인덱스를 이동합니다. 마지막 이미지인 경우 다시 첫 번째 이미지로 돌아갑니다.
               currentImageIndex = (currentImageIndex + 1) % images.length;
-      
+
               // 다음 이미지의 투명도를 1로 설정하여 보이게 합니다.
               images[currentImageIndex].classList.add("visible");
           }, 5000); // 5초 간격으로 이미지를 전환합니다.
       }); */
-      </script>
+            </script>
 
-    <script>
-      //신청마감 시간 체크 후 마감 안내 로직
-      function checkTimeAndToggleVisibility() {
-        var currentTime = new Date();
-        var targetTime = new Date('2030-04-01T23:59:00'); // 마감시간 설정(마지막날)
-    
-        if (currentTime >= targetTime) {
-            var elementToHide = document.getElementById('fram'); // 숨길 요소의 ID
-            var elementToShow = document.getElementById('shownotice'); // 보여줄 요소의 ID
-    
-            if (elementToHide) {
-                elementToHide.style.display = 'none'; // 요소 숨기기
-            }
-            if (elementToShow) {
-                elementToShow.style.display = 'block'; // 요소 보여주기
-            }
-        }
-    }
-    // 페이지 로드 시 함수 실행
-    window.onload = function() {
-        checkTimeAndToggleVisibility();
-    };
-  </script>
-      <script>
-    // 페이지 로딩이 완료되면 로딩 스피너를 숨깁니다.
-    window.addEventListener('load', function() {
-      var spinner = document.getElementById('loading-spinner');
-      spinner.style.display = 'none';
-    });
-    </script>
-    <script>
-    window.addEventListener('load', function() {
-      var loadingOverlay = document.getElementById('loading-overlay');
-      loadingOverlay.style.display = 'none';
-      alert('🚀9월산행은 40명 선착순 접수이고,  📅8월 25일(일) 까지 신청(인원변경)하실 수 있습니다 ');
-    });
-    </script>
-<script>  
-    function callon() {
-      if (window.confirm("☏ 회장(김설호)에게 📞전화앱으로 연결할까요?")) {
-        document.location.href = "tel:010-7118-6639"
-    } else {
-      alert("취소 되었습니다!!")
-    }
-   }                
-  </script>
-</body>
-</html>
+            <script>
+                //신청마감 시간 체크 후 마감 안내 로직
+                function checkTimeAndToggleVisibility() {
+                    var currentTime = new Date();
+                    var targetTime = new Date('2030-04-01T23:59:00'); // 마감시간 설정(마지막날)
+
+                    if (currentTime >= targetTime) {
+                        var elementToHide = document.getElementById('fram'); // 숨길 요소의 ID
+                        var elementToShow = document.getElementById('shownotice'); // 보여줄 요소의 ID
+
+                        if (elementToHide) {
+                            elementToHide.style.display = 'none'; // 요소 숨기기
+                        }
+                        if (elementToShow) {
+                            elementToShow.style.display = 'block'; // 요소 보여주기
+                        }
+                    }
+                }
+                // 페이지 로드 시 함수 실행
+                window.onload = function () {
+                    checkTimeAndToggleVisibility();
+                };
+            </script>
+            <script>
+                // 페이지 로딩이 완료되면 로딩 스피너를 숨깁니다.
+                window.addEventListener('load', function () {
+                    var spinner = document.getElementById('loading-spinner');
+                    spinner.style.display = 'none';
+                });
+            </script>
+            <script>
+                window.addEventListener('load', function () {
+                    var loadingOverlay = document.getElementById('loading-overlay');
+                    loadingOverlay.style.display = 'none';
+                    alert('🚀9월산행은 40명 선착순 접수이고,  📅8월 25일(일) 까지 신청(인원변경)하실 수 있습니다 ');
+                });
+            </script>
+            <script>
+                function callon() {
+                    if (window.confirm("☏ 회장(김설호)에게 📞전화앱으로 연결할까요?")) {
+                        document.location.href = "tel:010-7118-6639"
+                    } else {
+                        alert("취소 되었습니다!!")
+                    }
+                }
+            </script>
+        </body>
+    </html>
