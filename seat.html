@@ -1,174 +1,192 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link
-      href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <title>✨송년영화 관람석 선택하기</title>
-    <style>
-        body {
-            max-width: 900px;
-            margin: 5px;
-            padding: 10px;
-        }
-        .center {
-            display: flex;
-            text-align: center;
-        }
-        iframe {
-            border-radius: 10px;
-        }
-        a {
-            font-size: medium;
-            font-weight: 600;
-        }
-        #detail, #close {
-            display: none;
-        }
-        button {
-            font-size: 15px;
-            margin-top: 10px;
-            font-weight: 600;
-            border: none;
-            border-radius: 10px;
-            padding: 10px;
-            margin-right: 10px;
-            box-shadow: 0px 3px 6px grey;
-        }
-#icon_call {
-  border: none;
-  width: auto;
-  height: 55px;
-  padding-top: 12px;
-  padding-left: 10px;
-  padding-right: 10px;
-  font-size: 20px;
-  color: black;
-  border-radius: 35px;
-  box-shadow: 1px 3px 3px 1px slategray;
-  background: rgb(205, 235, 223);
-  text-align: center;
-  font-weight: bold;
-}
-#icon_call a {
-  color: black;
-  font-size: 20px;
-  font-weight: 600;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-.space_around {
-          display: flex;
-          justify-content: space-around;
-        }
-        #docu, #cancel {
-          display: none;
-          font-size: 15px;
-        }
-        #close {
-          font-weight: 600;
-        }
-        p {
-          border: solid 1px;
-          box-shadow: opx 2x 4px grey;
-          padding: 10px;
-          border-radius: 5px;
-          font-size: medium;
-        }
-        #loading-overlay {
-   position: fixed;
-   top: 0;
-   left: 0;
-   width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* 배경 색상과 투명도를 조정하세요 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    }
- #loading-message {
-    font-size: 24px;
-    color: white;
-    }
-    #loading-spinner {
-      border: 16px solid #f3f3f3;
-      border-top: 16px solid #3498db;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      animation: spin 2s linear infinite;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    img {
-      width: 100%;
-    }
-    </style>
-</head>
-<body onload="alert('🤷‍♂️새로 참가 신청하시는 분은 관람석만 선택하시면 됩니다. \n[참가신청 생략]')">
- <!--  onload="alert('🤵 참가신청이 마감 되어 대기로 접수 하실 수 있습니다. \n ✔취소발생시 접수 순으로 신청확정 됩니다.')" -->
- <img src="img/themarble.JPG">   
- <div class="space_around">
-    <h4> ✨문화탐방 송년무료영화 관람석 선택하기</h4>
-    </div>
-    <p>
-        12월에는 송년 무료영화관람 관람석을 선택해 주세요.   
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link
+            href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
+            rel="stylesheet"/>
+        <title>✨송년영화 관람석 선택하기</title>
+        <style>
+            body {
+                max-width: 900px;
+                margin: 5px;
+                padding: 10px;
+            }
+            .center {
+                display: flex;
+                text-align: center;
+            }
+            iframe {
+                border-radius: 10px;
+            }
+            a {
+                font-size: medium;
+                font-weight: 600;
+            }
+            #close,
+            #detail {
+                display: none;
+            }
+            button {
+                font-size: 15px;
+                margin-top: 10px;
+                font-weight: 600;
+                border: none;
+                border-radius: 10px;
+                padding: 10px;
+                margin-right: 10px;
+                box-shadow: 0 3px 6px grey;
+            }
+            #icon_call {
+                border: none;
+                width: auto;
+                height: 55px;
+                padding-top: 12px;
+                padding-left: 10px;
+                padding-right: 10px;
+                font-size: 20px;
+                color: black;
+                border-radius: 35px;
+                box-shadow: 1px 3px 3px 1px slategray;
+                background: rgb(205, 235, 223);
+                text-align: center;
+                font-weight: bold;
+            }
+            #icon_call a {
+                color: black;
+                font-size: 20px;
+                font-weight: 600;
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+            }
+            .space_around {
+                display: flex;
+                justify-content: space-around;
+            }
+            #cancel,
+            #docu {
+                display: none;
+                font-size: 15px;
+            }
+            #close {
+                font-weight: 600;
+            }
+            p {
+                border: solid 1px;
+                box-shadow: opx 2x 4px grey;
+                padding: 10px;
+                border-radius: 5px;
+                font-size: medium;
+            }
+            #loading-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                /* 배경 색상과 투명도를 조정하세요 */
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 9999;
+            }
+            #loading-message {
+                font-size: 24px;
+                color: white;
+            }
+            #loading-spinner {
+                border: 16px solid #f3f3f3;
+                border-top: 16px solid #3498db;
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+                animation: spin 2s linear infinite;
+            }
+            @keyframes spin {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+            img {
+                width: 100%;
+            }
+        </style>
+    </head>
+    <body onload="alert('🤷‍♂️새로 참가 신청하시는 분은 관람석만 선택하시면 됩니다. \n[참가신청 생략]')">
+        <!-- onload="alert('🤵 참가신청이 마감 되어 대기로 접수 하실 수 있습니다. \n ✔취소발생시 접수 순으로 신청확정
+        됩니다.')" -->
+        <img src="img/themarble.JPG">
+        <div class="space_around">
+            <h4>
+                ✨문화탐방 송년무료영화 관람석 선택하기</h4>
+        </div>
+        <p>
+            12월에는 송년 무료영화관람 관람석을 선택해 주세요.
+            <br>
+            한번에 최대 5개까지만 선택하실수 있습니다.
+            <br>
+            추가 선택이 필요한 경우 나누어서 신청바랍니다.<br><br>
+            <b>
+                <mark>📆언제: 2023.12.8(금) 오후 7시 ~ 10시</mark><br>
+                ⛳어디서: 광교아울렛 롯데시네마<br>
+                🎞 관람예정작: 더마블스<br>
+            </b>
+        </p>
+        <iframe
+            src="https://script.google.com/macros/s/AKfycbw-tPufoGsZJNEN2fTwNgxJH-2DzrqAM_5zdytZck6v8ZxsFLwG-vKF4ptilH6pyOWLlg/exec"
+            width="100%"
+            height="1000"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0">로드 중…</iframe>
+        <!--<a
+        href="https://docs.google.com/spreadsheets/d/1JMPRVw-hIARNFGgUXzbj4Nx7x4nJGarUoQiqaoR84UM/edit#gid=0"
+        target="_blank" onclick="alert('📢신청내역을 확인하실수 있습니다')">🔎가입신청내역 보기→</a> -->
+        <!-- <button onclick="location.reload()" style="background-color:
+        antiquewhite;">↩다시작성하기</button> <br> -->
+        <br><br>
+        <div class="space_around">
+            <!-- <a
+            href="https://docs.google.com/spreadsheets/d/1lC6fBILXjqxLEyU7RfDiFU8TtWqQw8kWop2etp5vN6Q/edit?usp=sharing">
+            🔎참가신청현황보기 → </a> <br><br> -->
+            <span onclick="callon()">
+                📞총무에게전화하기
+            </span>
+        </div>
         <br>
-        한번에 최대 5개까지만 선택하실수 있습니다. <br>
-        추가 선택이 필요한 경우 나누어서 신청바랍니다.<br><br>
-        <b> 
-        <mark>📆언제: 2023.12.8(금) 오후 7시 ~ 10시</mark><br>
-        ⛳어디서: 광교아울렛 롯데시네마<br>         
-        🎞 관람예정작: 더마블스<br>
-       </b>
-    </p>
-   <iframe src="https://script.google.com/macros/s/AKfycbw-tPufoGsZJNEN2fTwNgxJH-2DzrqAM_5zdytZck6v8ZxsFLwG-vKF4ptilH6pyOWLlg/exec" width="100%" height="1000" frameborder="0" marginheight="0" marginwidth="0">로드 중…</iframe>
-   <!--<a href="https://docs.google.com/spreadsheets/d/1JMPRVw-hIARNFGgUXzbj4Nx7x4nJGarUoQiqaoR84UM/edit#gid=0" target="_blank" onclick="alert('📢신청내역을 확인하실수 있습니다')">🔎가입신청내역 보기→</a>
-   -->
-    <!-- <button onclick="location.reload()" style="background-color: antiquewhite;">↩다시작성하기</button>
-  <br> -->
-  <br><br>
-  <div class="space_around">
-<!--     <a href="https://docs.google.com/spreadsheets/d/1lC6fBILXjqxLEyU7RfDiFU8TtWqQw8kWop2etp5vN6Q/edit?usp=sharing"> 🔎참가신청현황보기 → </a>
-    <br><br> -->
-    <span onclick="callon()">
-    📞총무에게전화하기
-    </span>
-    </div>
-    <br>
-    <div id="loading-overlay">
-      <div id="loading-spinner"></div>
-      <div id="loading-message">로딩 중입니다...
-        <br><small>✨문화탐방 동아리</small>
-      </div>
-    </div>
-    <script>
-    // 페이지 로딩이 완료되면 로딩 스피너를 숨깁니다.
-    window.addEventListener('load', function() {
-      var spinner = document.getElementById('loading-spinner');
-      spinner.style.display = 'none';
-    });
-    </script>
-    <script>
-    window.addEventListener('load', function() {
-      var loadingOverlay = document.getElementById('loading-overlay');
-      loadingOverlay.style.display = 'none';
-    });
-    </script>
-<script>  
-    function callon() {
-      if (window.confirm("☏ 총무(김설호)에게 📞전화앱으로 연결할까요?")) {
-        document.location.href = "tel:010-7118-6639"
-    } else {
-      alert("취소 되었습니다!!")
-    }
-   }                
-  </script>
-</body>
+        <div id="loading-overlay">
+            <div id="loading-spinner"></div>
+            <div id="loading-message">로딩 중입니다...
+                <br>
+                <small>✨문화탐방 동아리</small>
+            </div>
+        </div>
+        <script>
+            // 페이지 로딩이 완료되면 로딩 스피너를 숨깁니다.
+            window.addEventListener('load', function () {
+                var spinner = document.getElementById('loading-spinner');
+                spinner.style.display = 'none';
+            });
+        </script>
+        <script>
+            window.addEventListener('load', function () {
+                var loadingOverlay = document.getElementById('loading-overlay');
+                loadingOverlay.style.display = 'none';
+            });
+        </script>
+        <script>
+            function callon() {
+                if (window.confirm("☏ 총무(김설호)에게 📞전화앱으로 연결할까요?")) {
+                    document.location.href = "tel:010-7118-6639"
+                } else {
+                    alert("취소 되었습니다!!")
+                }
+            }
+        </script>
+    </body>
 </html>
