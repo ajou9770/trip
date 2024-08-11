@@ -1,171 +1,343 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            // 현재 신청인원 불러오기
-            $.get('https://script.google.com/macros/s/AKfycbxHpu_I2T2M8JLxHgRLSqDFzRIogTx-x4OcLf9CxjziJQb5_vBFp9TCStU2JpKca_m4Iw/exec?totalParticipants=true', function(response) {
-                $('#currentParticipants').text(`현재 총 ${response.total}명이 참가 신청중입니다 (${response.waiting}명은 대기접수 중입니다.)`);
-                window.totalParticipants = response.total; // 전역 변수로 저장
-            }, 'json');
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+            rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                // 현재 신청인원 불러오기
+                $.get(
+                    'https://script.google.com/macros/s/AKfycbxHpu_I2T2M8JLxHgRLSqDFzRIogTx-x4OcLf9' +
+                            'CxjziJQb5_vBFp9TCStU2JpKca_m4Iw/exec?totalParticipants=true',
+                    function (response) {
+                        $('#currentParticipants').text(
+                            `🤷‍♂️현재 총 ${response.total}명이 참가 신청중입니다 (${response.waiting}명은 대기접수 중입니다.)`
+                        );
+                        window.totalParticipants = response.total; // 전역 변수로 저장
+                    },
+                    'json'
+                );
 
-            $('#signupForm').on('submit', function(event) {
-                event.preventDefault();
-                var formData = {
-                    name: $('#name').val(),
-                    tel: $('#tel').val(),
-                    join: $('#join').val(),
-                    joinbaby: $('#joinbaby').val(),
-                    joinoption: $('#joinoption').val(),
-                    etc: $('#etc').val()
-                };
+                // 제출하기
+                $('#signupForm').on('submit', function (event) {
+                    event.preventDefault();
 
-                $.post('https://script.google.com/macros/s/AKfycbxHpu_I2T2M8JLxHgRLSqDFzRIogTx-x4OcLf9CxjziJQb5_vBFp9TCStU2JpKca_m4Iw/exec', formData, function(response) {
-                    alert(response.message);
-                }, 'json');
-            });
+                    var formData = {
+                        name: $('#name').val(),
+                        tel: $('#tel').val(),
+                        join: $('#join').val(),
+                        joinbaby: $('#joinbaby').val(),
+                        joinoption: $('#joinoption').val(),
+                        etc: $('#etc').val()
+                    };
 
-            $('#searchButton').on('click', function() {
-                var tel = $('#telInput').val();
-                $.get('https://script.google.com/macros/s/AKfycbxHpu_I2T2M8JLxHgRLSqDFzRIogTx-x4OcLf9CxjziJQb5_vBFp9TCStU2JpKca_m4Iw/exec', { tel: tel }, function(response) {
-                    if (response.status === 'success') {
-                        var data = response.data;
-                        var formattedResult = `성명: ${data.name}\n참석인원: ${data.join}\n코스: ${data.joinoption}`;
-                        $('#searchResult').text(formattedResult);
+                    var confirmationMessage = `🤷‍♀️입력하신 내용을 확인해 주세요 \n
+        - 성  명: ${formData.name}
+        - 연락처: ${formData.tel}
+        - 참석인원: ${formData.join}
+        - 예비회원: ${formData.joinbaby}
+        - 선택 코스: ${formData.joinoption}\n`;
 
-                        // 변경하기 버튼 및 셀렉트 박스 표시
-                        $('#updateSection').show();
-                        $('#currentTel').val(data.tel);  // 현재 전화번호 저장
-                        $('#currentJoin').val(data.join); // 현재 참석인원 저장
+                    if (confirm(confirmationMessage + '\n이대로 제출하시겠습니까?')) {
+                        // 버튼 비활성화 및 로딩 메시지 표시
+                        var $submitButton = $('#signupButton');
+                        $submitButton
+                            .prop('disabled', true)
+                            .text('📤제출중...');
 
-                        // 참석인원 선택 옵션 업데이트
-                        updateJoinOptions(parseInt(data.join));
+                        $
+                            .post(
+                                'https://script.google.com/macros/s/AKfycbxHpu_I2T2M8JLxHgRLSqDFzRIogTx-x4OcLf9' +
+                                        'CxjziJQb5_vBFp9TCStU2JpKca_m4Iw/exec',
+                                formData,
+                                function (response) {
+                                    alert(response.message);
+                                },
+                                'json'
+                            )
+                            .always(function () {
+                                // 완료 후 버튼 상태 복원
+                                $submitButton
+                                    .prop('disabled', false)
+                                    .text('📤제출하기');
+                            });
+                    }
+                });
+
+                // 조회하기
+                $('#searchButton').on('click', function () {
+                    // 버튼 비활성화 및 로딩 메시지 표시
+                    var $searchButton = $('#searchButton');
+                    $searchButton
+                        .prop('disabled', true)
+                        .text('🔎조회중...');
+
+                    var tel = $('#telInput').val();
+
+                    // 스크롤 애니메이션 (1초 동안 페이지를 아래로 이동)
+                    $('html, body').animate({
+                        scrollTop: $('#searchResult')
+                            .offset()
+                            .top
+                    }, 1000); // 1000ms = 1초
+
+                    $
+                        .get(
+                            'https://script.google.com/macros/s/AKfycbxHpu_I2T2M8JLxHgRLSqDFzRIogTx-x4OcLf9' +
+                                    'CxjziJQb5_vBFp9TCStU2JpKca_m4Iw/exec',
+                            {
+                                tel: tel
+                            },
+                            function (response) {
+                                if (response.status === 'success') {
+                                    var data = response.data;
+                                    var formattedResult = `▶성명: ${data.name} /\n참석인원: ${data.join}명, /\n코스: ${data.joinoption}`;
+                                    $('#searchResult').text(formattedResult);
+
+                                    // 변경하기 버튼 및 셀렉트 박스 표시
+                                    $('#updateSection').show();
+                                    $('#currentTel').val(data.tel); // 현재 전화번호 저장
+                                    $('#currentJoin').val(data.join); // 현재 참석인원 저장
+
+                                    // 참석인원 선택 옵션 업데이트
+                                    updateJoinOptions(parseInt(data.join));
+                                } else {
+                                    alert(response.message);
+                                }
+                            },
+                            'json'
+                        )
+                        .always(function () {
+                            // 완료 후 버튼 상태 복원
+                            $searchButton
+                                .prop('disabled', false)
+                                .text('🔎조회하기');
+                        });
+                });
+
+                // 변경하기
+                $('#updateButton').on('click', function () {
+                    var $updateButton = $('#updateButton');
+                    $updateButton
+                        .prop('disabled', true)
+                        .text('🔁변경(취소) 처리중...');
+
+                    var tel = $('#currentTel').val();
+                    var newJoin = $('#newJoin').val();
+                    var currentJoin = $('#currentJoin').val();
+
+                    if (parseInt(newJoin) === parseInt(currentJoin)) {
+                        alert('현재 신청된 인원과 같습니다. 다른 값을 선택해 주세요.');
+                        $updateButton
+                            .prop('disabled', false)
+                            .text('🔁변경하기');
+                        return;
+                    }
+
+                    // 취소 여부 확인
+                    if (parseInt(newJoin) === 0) {
+                        if (!confirm('🤷참석을 취소 하는것이 맞나요?')) {
+                            $updateButton
+                                .prop('disabled', false)
+                                .text('🔁변경하기');
+                            return;
+                        }
+                    }
+
+                    var confirmationMessage = `🤷‍♀️변경신청내용확인:\n
+  - 현재 신청 인원: ${currentJoin}명
+  - 변경 후 인원: ${newJoin}명\n`;
+
+                    if (confirm(confirmationMessage + '\n이대로 변경(취소) 할까요?')) {
+                        $
+                            .post(
+                                'https://script.google.com/macros/s/AKfycbxHpu_I2T2M8JLxHgRLSqDFzRIogTx-x4OcLf9' +
+                                        'CxjziJQb5_vBFp9TCStU2JpKca_m4Iw/exec',
+                                {
+                                    tel: tel,
+                                    join: newJoin
+                                },
+                                function (response) {
+                                    alert(response.message);
+                                },
+                                'json'
+                            )
+                            .always(function () {
+                                // 완료 후 버튼 상태 복원
+                                $updateButton
+                                    .prop('disabled', false)
+                                    .text('🔁변경하기');
+                            });
                     } else {
-                        alert(response.message);
+                        // 사용자가 취소를 선택한 경우
+                        $updateButton
+                            .prop('disabled', false)
+                            .text('🔁변경하기');
                     }
-                }, 'json');
-            });
+                });
 
-            $('#updateButton').on('click', function() {
-                var tel = $('#currentTel').val();
-                var newJoin = $('#newJoin').val();
-                var currentJoin = $('#currentJoin').val();
+                function updateJoinOptions(currentJoin) {
+                    var totalParticipants = window.totalParticipants;
+                    var joinSelect = $('#newJoin');
+                    joinSelect.empty();
 
-                if (parseInt(newJoin) === parseInt(currentJoin)) {
-                    alert('현재 신청된 인원과 같습니다. 다른 값을 선택해 주세요.');
-                    return;
-                }
-
-                $.post('https://script.google.com/macros/s/AKfycbxHpu_I2T2M8JLxHgRLSqDFzRIogTx-x4OcLf9CxjziJQb5_vBFp9TCStU2JpKca_m4Iw/exec', { tel: tel, join: newJoin }, function(response) {
-                    alert(response.message);
-                }, 'json');
-            });
-
-            function updateJoinOptions(currentJoin) {
-                var totalParticipants = window.totalParticipants;
-                var joinSelect = $('#newJoin');
-                joinSelect.empty();
-
-                for (var i = 0; i <= 5; i++) {
-                    if (totalParticipants > 40 && i >= currentJoin) {
-                        continue; // 40명을 초과한 경우 현재 신청인원보다 큰 값은 추가하지 않음
+                    for (var i = 0; i <= 5; i++) {
+                        if (totalParticipants > 40 && i >= currentJoin) {
+                            /* alert('⚠신청인원이 40명을 초과하는 경우 현재보다 적게만 변경하실 수 있습니다'); */
+                            continue; // 40명을 초과한 경우 현재 신청인원보다 큰 값은 추가하지 않음
+                        }
+                        joinSelect.append(new Option(i + (
+                            i === 0
+                                ? '(취소)'
+                                : '명'
+                        ), i));
                     }
-                    joinSelect.append(new Option(i + (i === 0 ? '(취소)' : '명'), i));
                 }
+            });
+        </script>
+        <style>
+            body {
+                margin: 20px;
             }
-        });
-    </script>
-    <style>
-        body {
-            margin: 20px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h5 class="mb-4">산악회 등산(트래킹) 신청하기</h5>
-        <form id="signupForm" class="mb-5">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="name-label">이름:</span>
+            #searchResult {
+                font-weight: 600;
+                font-size: large;
+                color: coral;
+            }
+            #currentParticipants {
+                font-weight: 600;
+                font-size: large;
+                color: crimson;
+            }
+            .input-group-text {
+                width: 140px;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h5 class="mb-4">산악회 등산(트래킹) 신청하기</h5>
+            <form id="signupForm" class="mb-5">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="name-label">이름</span>
+                    </div>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="name"
+                        name="name"
+                        required="required"
+                        aria-describedby="name-label">
                 </div>
-                <input type="text" class="form-control" id="name" name="name" required aria-describedby="name-label">
-            </div>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="tel-label">연락처:</span>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="tel-label">연락처</span>
+                    </div>
+                    <input
+                        type="number"
+                        class="form-control"
+                        id="tel"
+                        name="tel"
+                        placeholder="숫자만 입력"
+                        required="required"
+                        aria-describedby="tel-label">
                 </div>
-                <input type="text" class="form-control" id="tel" name="tel" required aria-describedby="tel-label">
-            </div>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="join-label">참석인원:</span>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="join-label">참석인원</span>
+                    </div>
+                    <select
+                        id="join"
+                        name="join"
+                        class="form-select"
+                        required="required"
+                        aria-describedby="join-label">
+                        <option value="1">1명</option>
+                        <option value="2">2명</option>
+                        <option value="3">3명</option>
+                        <option value="4">4명</option>
+                        <option value="5">5명</option>
+                    </select>
                 </div>
-                <select id="join" name="join" class="form-select" required aria-describedby="join-label">
-                    <option value="1">1명</option>
-                    <option value="2">2명</option>
-                    <option value="3">3명</option>
-                    <option value="4">4명</option>
-                    <option value="5">5명</option>
-                </select>
-            </div>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="joinbaby-label">비회원 인원:</span>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="joinbaby-label">예비회원 인원</span>
+                    </div>
+                    <select
+                        id="joinbaby"
+                        name="joinbaby"
+                        class="form-select"
+                        required="required"
+                        aria-describedby="joinbaby-label">
+                        <option value="0">없음</option>
+                        <option value="1">1명</option>
+                        <option value="2">2명</option>
+                        <option value="3">3명</option>
+                        <option value="4">4명</option>
+                        <option value="5">5명</option>
+                    </select>
                 </div>
-                <select id="joinbaby" name="joinbaby" class="form-select" required aria-describedby="joinbaby-label">
-                    <option value="0">없음</option>
-                    <option value="1">1명</option>
-                    <option value="2">2명</option>
-                    <option value="3">3명</option>
-                    <option value="4">4명</option>
-                    <option value="5">5명</option>
-                </select>
-            </div>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="joinoption-label">코스 선택:</span>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="joinoption-label">코스는?</span>
+                    </div>
+                    <select
+                        id="joinoption"
+                        name="joinoption"
+                        class="form-select"
+                        required="required"
+                        aria-describedby="joinoption-label">
+                        <option value="A코스">A코스</option>
+                        <option value="B코스">B코스</option>
+                    </select>
                 </div>
-                <select id="joinoption" name="joinoption" class="form-select" required aria-describedby="joinoption-label">
-                    <option value="A코스">A코스</option>
-                    <option value="B코스">B코스</option>
-                </select>
-            </div>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="etc-label">기타:</span>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="etc-label">💬기타 코멘트</span>
+                    </div>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="etc"
+                        name="etc"
+                        aria-describedby="etc-label">
                 </div>
-                <input type="text" class="form-control" id="etc" name="etc" aria-describedby="etc-label">
+                <button type="submit" id="signupButton" class="btn btn-primary btn-block">📤제출하기</button>
+            </form>
+            <div id="currentParticipants" class="mb-4"></div>
+            <hr>
+            <h4 class="mb-4">🔎신청내역 조회 및 변경(취소)하기</h4>
+            <div class="mb-3">
+                <label for="telInput" class="form-label">🤷‍♂️연락처 입력 후 조회하세요</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="telInput"
+                    placeholder="숫자만 입력"
+                    name="telInput">
             </div>
-            <button type="submit" class="btn btn-primary">제출</button>
-        </form>
-        <div id="currentParticipants" class="mb-4"></div>
-        <hr>
-        <h4 class="mb-4">신청내역 조회</h4>
-        <div class="mb-3">
-            <label for="telInput" class="form-label">연락처:</label>
-            <input type="text" class="form-control" id="telInput" name="telInput">
+            <button id="searchButton" class="btn btn-info mb-3">🔎조회하기</button>
+            <h5 id="searchResult"></h5>
+            <br>
+            <div id="updateSection" style="display:none;">
+                <h4 class="mb-4">🔁참석인원 변경(취소)하기</h4>
+                <input type="hidden" id="currentTel">
+                <input type="hidden" id="currentJoin">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="newJoin-label">변경할 참석인원:</span>
+                    </div>
+                    <select id="newJoin" class="form-select" aria-describedby="newJoin-label">
+                        <!-- 옵션은 JavaScript로 동적으로 추가됩니다. -->
+                    </select>
+                </div>
+                <button id="updateButton" class="btn btn-danger">🔁변경하기</button>
+            </div>
         </div>
-        <button id="searchButton" class="btn btn-primary mb-3">조회하기</button>
-        <h6 id="searchResult"></h6>
-        
-        <div id="updateSection" style="display:none;">
-            <h4 class="mb-4">참석인원 변경하기</h4>
-            <input type="hidden" id="currentTel">
-            <input type="hidden" id="currentJoin">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="newJoin-label">새 참석인원:</span>
-                </div>
-                <select id="newJoin" class="form-select" aria-describedby="newJoin-label">
-                    <!-- 옵션은 JavaScript로 동적으로 추가됩니다. -->
-                </select>
-            </div>
-            <button id="updateButton" class="btn btn-primary">변경하기</button>
-        </div>
-    </div>
-</body>
+    </body>
 </html>
