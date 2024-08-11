@@ -95,7 +95,7 @@
                             function (response) {
                                 if (response.status === 'success') {
                                     var data = response.data;
-                                    var formattedResult = `▶성명: ${data.name} /\n참석인원: ${data.join}명, /\n코스: ${data.joinoption}`;
+                                    var formattedResult = `▶성명: ${data.name} /\n참석인원: ${data.join}명 /\n코스: ${data.joinoption}`;
                                     $('#searchResult').text(formattedResult);
 
                                     // 변경하기 버튼 및 셀렉트 박스 표시
