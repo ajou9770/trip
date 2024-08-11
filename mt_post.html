@@ -14,7 +14,7 @@
                             'CxjziJQb5_vBFp9TCStU2JpKca_m4Iw/exec?totalParticipants=true',
                     function (response) {
                         $('#currentParticipants').text(
-                            `🤷‍♂️현재 총 ${response.total}명이 참가 신청중입니다 (${response.waiting}명은 대기접수 중입니다.)`
+                            `🤷‍♂️현재 총 ${response.total}명이 참가 신청중입니다 \n (⚠${response.waiting}명은 대기접수 중입니다.)`
                         );
                         window.totalParticipants = response.total; // 전역 변수로 저장
                     },
