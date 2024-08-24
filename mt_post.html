@@ -68,57 +68,48 @@
                 });
 
                 // 조회하기
-                $('#searchButton').on('click', function () {
-                    // 버튼 비활성화 및 로딩 메시지 표시
+                    $('#searchButton').on('click', function () {
                     var $searchButton = $('#searchButton');
-                    alert('🤷‍♀️조회중입니다. 잠시후 결과를 아래에 표시합니다.');
+                    alert('🤷‍♀️조회중입니다. 잠시후 결과를 아래에 표시합니다. \n접수상태는 약 1분후에 반영 됩니다.');
                     $searchButton
                         .prop('disabled', true)
                         .text('🔎조회중...');
-
+                
                     var tel = $('#telInput').val();
-
-                    // 스크롤 애니메이션 (1초 동안 페이지를 아래로 이동)
+                
                     $('html, body').animate({
-                        scrollTop: $('#searchResult')
-                            .offset()
-                            .top
-                    }, 1000); // 1000ms = 1초
-
-                    $
-                        .get(
-                            'https://script.google.com/macros/s/AKfycbxHpu_I2T2M8JLxHgRLSqDFzRIogTx-x4OcLf9' +
-                                    'CxjziJQb5_vBFp9TCStU2JpKca_m4Iw/exec',
-                            {
-                                tel: tel
-                            },
-                            function (response) {
-                                if (response.status === 'success') {
-                                    var data = response.data;
-                                    var formattedResult = `▶성명: ${data.name} /\n참석인원: ${data.join}명 /\n코스: ${data.joinoption}`;
-                                    $('#searchResult').text(formattedResult);
-
-                                    // 변경하기 버튼 및 셀렉트 박스 표시
-                                    $('#updateSection').show();
-                                    $('#currentTel').val(data.tel); // 현재 전화번호 저장
-                                    $('#currentJoin').val(data.join); // 현재 참석인원 저장
-
-                                    // 참석인원 선택 옵션 업데이트
-                                    updateJoinOptions(parseInt(data.join));
-                                } else {
-                                    alert(response.message);
-                                }
-                            },
-                            'json'
-                        )
-                        .always(function () {
-                            // 완료 후 버튼 상태 복원
-                            $searchButton
-                                .prop('disabled', false)
-                                .text('🔎조회하기');
-                        });
+                        scrollTop: $('#searchResult').offset().top
+                    }, 1000);
+                
+                    $.get(
+                        'https://script.google.com/macros/s/AKfycbxHpu_I2T2M8JLxHgRLSqDFzRIogTx-x4OcLf9CxjziJQb5_vBFp9TCStU2JpKca_m4Iw/exec',
+                        {
+                            tel: tel
+                        },
+                        function (response) {
+                            if (response.status === 'success') {
+                                var data = response.data;
+                                var formattedResult = `▶성명: ${data.name} /\n참석인원: ${data.join}명 /\n코스: ${data.joinoption} /\n접수상태: ${data.state}`;
+                                $('#searchResult').text(formattedResult);
+                
+                                $('#updateSection').show();
+                                $('#currentTel').val(data.tel);
+                                $('#currentJoin').val(data.join);
+                
+                                updateJoinOptions(parseInt(data.join));
+                            } else {
+                                alert(response.message);
+                            }
+                        },
+                        'json'
+                    )
+                    .always(function () {
+                        $searchButton
+                            .prop('disabled', false)
+                            .text('🔎조회하기');
+                    });
                 });
-
+                
                 // 변경하기
                 $('#updateButton').on('click', function () {
                     var $updateButton = $('#updateButton');
@@ -152,7 +143,7 @@
   - 현재 신청 인원: ${currentJoin}명
   - 변경 후 인원: ${newJoin}명\n`;
 
-                    if (confirm(confirmationMessage + '\n이대로 변경(취소) 할까요?\n')) {
+                    if (confirm(confirmationMessage + '\n이대로 변경(취소) 할까요?\n 접수상태는 약 1분후에 반영됩니다. \n')) {
                         $
                             .post(
                                 'https://script.google.com/macros/s/AKfycbxHpu_I2T2M8JLxHgRLSqDFzRIogTx-x4OcLf9' +
@@ -386,8 +377,8 @@
                     required="required"
                     aria-describedby="joinoption-label">
                     <option value="">선택하세요</option>
-                    <option value="A코스">A코스</option>
-                    <option value="B코스">B코스</option>
+                    <option value="A코스(산행/배틀바위코스)">A코스(산행/배틀바위코스)</option>
+                    <option value="B코스(트래킹/무릉계속코스)">B코스(트래킹/무릉계곡코스)</option>
                 </select>
             </div>
             <div class="input-group mb-3">
