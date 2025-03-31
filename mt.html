@@ -7,6 +7,7 @@
         <link
             href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
             rel="stylesheet"/>
+         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <title>🏕산악회 등반(트래킹)일정 및 참가 신청하기</title>
         <style>
             body {
@@ -157,29 +158,31 @@
                     font-size: 18px;
                 }
             }
+            .carousel-item img { height: 400px; object-fit: cover; 
+            }
         </style>
     </head>
     <body>
-        <!-- onload="alert('🤵 참가신청이 마감 되어 대기로 접수 하실 수 있습니다. \n ✔취소발생시 접수 순으로 신청확정
-        됩니다.')" -->
-        <div class="slideshow-container">
-            <div class="slide">
-                <img src="https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F276B033757E72E7420" class="slideshow-image">
-                <div class="watermark">📢백두대간 조령산 및 연풍새재~문경새재 옛길 2025.4.12(토)</div>
-            </div>
-            <div class="slide">
-                <img src="https://lh5.googleusercontent.com/proxy/TDwMVPR9dC6CSjxDh8s2CRkIZLqAaPMrknppB6Wz_k5fPw3YMIvyJt8vlbI7DEiNM7BDB41YHC5e5BnsXqrcrMHybQ" class="slideshow-image">
-            </div>
-         <div class="slide">
-                <img src="https://cdn.sansan.co.kr/news/photo/202309/21421_24313_3927.jpeg" class="slideshow-image">
-            </div>
-            <div class="slide">
-                <img src="https://lh3.googleusercontent.com/proxy/XGmgpMxgXV_GFPNWRUyv890M22QQ30uMwfNgaEyXuhqDnCCb36nu-fw5f6tSA1aoIVLF6sO2nz1SQ9RVXj2pYHLTzIEkIIoylitaNRsEosAdw-49YCkFpOu3x9iyzYnj9A" class="slideshow-image">
-            </div>
-            <div class="slide">
-                <img src="https://www.yeongnam.com/mnt/file/202410/2024100401000147000004791.jpg" class="slideshow-image">
-            </div> 
+        <!-- 이미지 슬라이드 -->
+    <div id="mountainCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F276B033757E72E7420" class="d-block w-100" alt="산 이미지 1">
+          </div>
+          <div class="carousel-item">
+            <img src="https://lh5.googleusercontent.com/proxy/TDwMVPR9dC6CSjxDh8s2CRkIZLqAaPMrknppB6Wz_k5fPw3YMIvyJt8vlbI7DEiNM7BDB41YHC5e5BnsXqrcrMHybQ" class="d-block w-100" alt="산 이미지 2">
+          </div>
+          <div class="carousel-item">
+            <img src="https://cdn.sansan.co.kr/news/photo/202309/21421_24313_3927.jpeg" class="d-block w-100" alt="산 이미지 3">
+          </div>
+          <!-- <div class="carousel-item">
+            <img src="https://lh3.googleusercontent.com/proxy/XGmgpMxgXV_GFPNWRUyv890M22QQ30uMwfNgaEyXuhqDnCCb36nu-fw5f6tSA1aoIVLF6sO2nz1SQ9RVXj2pYHLTzIEkIIoylitaNRsEosAdw-49YCkFpOu3x9iyzYnj9A" class="d-block w-100" alt="산 이미지 4">
+          </div> -->
+          <div class="carousel-item">
+            <img src="https://www.yeongnam.com/mnt/file/202410/2024100401000147000004791.jpg" class="d-block w-100" alt="산 이미지 5">
+          </div>
         </div>
+      </div>
     </div>
         <h4>
             <b>📢산악회 4월 산행 및 트래킹 안내.</b>
@@ -226,6 +229,17 @@
                     <small>🏕아주대병원 산악회</small>
                 </div>
             </div>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+            <script>
+                const carouselElement = document.querySelector('#mountainCarousel');
+                const carousel = new bootstrap.Carousel(carouselElement, {
+                  interval: 3000, // 3초마다 자동 전환
+                  ride: 'carousel',
+                  pause: false,
+                  wrap: true
+                });
+              </script>
+              
             <script>
                 let slideIndex = 0;
                 showSlides();
@@ -377,7 +391,7 @@
                 window.addEventListener('load', function () {
                     var loadingOverlay = document.getElementById('loading-overlay');
                     loadingOverlay.style.display = 'none';
-                    alert('📢당초 문경 주흘산 산행 예정이었으나, 조령산으로 산행지를 변경합니다. 일정상 양해 바랍니다.  ');
+                    alert('📢4월 6일까지 신청(변경,취소)가능합니다.');
                 });
             </script>
             <script>
