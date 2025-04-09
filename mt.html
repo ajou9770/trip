@@ -360,12 +360,20 @@ function loadEntries() {
     });
 }
 
+ 
 function deleteEntry(time, name) {
     if (!confirm(`${name}님의 신청을 삭제하시겠습니까?`)) return;
   
+    // ✅ 이름 재입력 받기
+    const inputName = prompt("🤷‍♂️ 삭제를 위해 [이름]을 입력해 주세요:");
+    if (!inputName || inputName.trim() !== name.trim()) {
+      alert("❌ 이름이 미입력되었거나 일치하지 않습니다. 취소되었습니다.");
+      return;
+    }
+  
     const formattedTime = new Date(time).toLocaleString('sv-SE').replace('T', ' ');
   
-    const btn = event.target; // 삭제 버튼 객체
+    const btn = event.target;
     const originalText = btn.innerHTML;
     btn.disabled = true;
     btn.innerHTML = '🔄 삭제중...';
