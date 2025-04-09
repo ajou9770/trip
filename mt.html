@@ -367,7 +367,7 @@ function deleteEntry(time, name) {
     // ✅ 이름 재입력 받기
     const inputName = prompt("🤷‍♂️ 삭제를 위해 [이름]을 입력해 주세요:");
     if (!inputName || inputName.trim() !== name.trim()) {
-      alert("❌ 이름이 미입력되었거나 일치하지 않습니다. 취소되었습니다.");
+      alert("⚠삭제취소. 이름이 미입력되었거나 일치하지 않습니다.");
       return;
     }
   
