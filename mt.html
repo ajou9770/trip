@@ -353,7 +353,7 @@ function loadEntries() {
   <td style="min-width: 90px; font-weight: normal; font-size: 0.9rem;">${row.name}</td>
   <td style="font-weight: normal; font-size: 0.9rem;">${row.participants}</td>
   <td style="font-weight: normal; font-size: 0.9rem;">${row.course}</td>
-  <td><button class="btn btn-sm btn-danger" onclick="deleteEntry('${row.time}', '${row.name}')">삭제</button></td>
+  <td><button class="btn btn-sm btn-danger" onclick="deleteEntry('${row.time}', '${row.name}')">Del</button></td>
 `;
         tbody.appendChild(tr);
       });
@@ -409,7 +409,7 @@ function deleteEntry(time, name) {
             <td>${row.name}</td>
             <td>${row.participants}</td>
             <td>${row.course}</td>
-            <td><button class="btn btn-sm btn-danger" onclick="deleteEntry('${row.time}', '${row.name}')">삭제</button></td>
+            <td><button class="btn btn-sm btn-danger" onclick="deleteEntry('${row.time}', '${row.name}')">del</button></td>
           `;
           tbody.appendChild(tr);
         });
