@@ -171,7 +171,7 @@
     <thead class="table-dark">
       <tr>
         <th>성명</th>
-        <th>참가인원</th>
+        <th>인원</th>
         <th>코스</th>
         <th>삭제</th>
       </tr>
@@ -350,11 +350,11 @@ function loadEntries() {
       data.reverse().forEach(row => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
-          <td>${row.name}</td>
-          <td>${row.participants}</td>
-          <td>${row.course}</td>
-          <td><button class="btn btn-sm btn-danger" onclick="deleteEntry('${row.time}', '${row.name}')">삭제</button></td>
-        `;
+  <td style="min-width: 90px; font-weight: normal; font-size: 0.9rem;">${row.name}</td>
+  <td style="font-weight: normal; font-size: 0.9rem;">${row.participants}</td>
+  <td style="font-weight: normal; font-size: 0.9rem;">${row.course}</td>
+  <td><button class="btn btn-sm btn-danger" onclick="deleteEntry('${row.time}', '${row.name}')">삭제</button></td>
+`;
         tbody.appendChild(tr);
       });
     });
